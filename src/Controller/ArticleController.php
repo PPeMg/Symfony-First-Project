@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class ArticleController extends AbstractController
@@ -30,12 +31,19 @@ class ArticleController extends AbstractController
         ]);
     }
               
-    public function toggleArticleHeart($slug, LoggerInterface $logger)
+    public function toggleArticleHeart(Request $request, LoggerInterface $logger)
     {
-        // TODO - actually heart/unheart the article!
+        $likes = $request->request->get('likes');
 
+        if(trim($request->request->get('operation')) == "add"){
+            $likes++;
+        } else {
+            $likes--;
+        }
+
+        // TODO - actually heart/unheart the article!
         $logger->info('Article is being hearted!');
 
-        return new JsonResponse(['hearts' => rand(5, 100)]);
+        return new JsonResponse(['hearts' => $likes]);
     }
 }
