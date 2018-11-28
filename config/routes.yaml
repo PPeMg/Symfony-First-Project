@@ -1,7 +1,0 @@
-index:
-    path: /
-    controller: App\Controller\ArticleController::homepage
-
-news:
-    path: /news/{idN}
-    controller: App\Controller\ArticleController::show
